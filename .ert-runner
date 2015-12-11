@@ -1,0 +1,2 @@
+-l core/core-load-paths
+-l test/test-helper

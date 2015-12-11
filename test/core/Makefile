@@ -12,6 +12,8 @@
 
 TEST_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 
+TEST_HELPER = ../test-helper.el
+
 LOAD_FILES = core/core-load-paths.el
 UNIT_TEST_FILES = \
   core-configuration-layer-utest.el \
