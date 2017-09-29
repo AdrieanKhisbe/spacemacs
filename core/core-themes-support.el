@@ -249,9 +249,10 @@ package name does not match theme name + `-theme' suffix.")
        (throw 'error)))))
 
 (defun spacemacs/cycle-spacemacs-theme (&optional backward)
-  "Cycle through themes defined in `dotspacemacs-themes.'"
+  "Cycle through themes defined in `dotspacemacs-themes.'
+Does it BACKWARD with universal-argument or negative command argument"
   (interactive "P")
-  (let* ((reversed (or (equal backward '(4)) (eq backward t)))
+  (let* ((reversed (member backward '(t - (4))))
          (themes (if reversed (reverse dotspacemacs-themes) dotspacemacs-themes)))
     (when spacemacs--cur-theme
       (disable-theme spacemacs--cur-theme)
