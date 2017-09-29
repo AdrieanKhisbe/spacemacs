@@ -248,21 +248,23 @@ package name does not match theme name + `-theme' suffix.")
                      (load-theme ',spacemacs--fallback-theme t)))))
        (throw 'error)))))
 
-(defun spacemacs/cycle-spacemacs-theme ()
+(defun spacemacs/cycle-spacemacs-theme (&optional backward)
   "Cycle through themes defined in `dotspacemacs-themes.'"
-  (interactive)
-  (when spacemacs--cur-theme
-    (disable-theme spacemacs--cur-theme)
-    ;; if current theme isn't in cycleable themes, start over
-    (setq spacemacs--cycle-themes
-          (or (cdr (memq spacemacs--cur-theme dotspacemacs-themes))
-              dotspacemacs-themes)))
-  (setq spacemacs--cur-theme (pop spacemacs--cycle-themes))
-  (let ((progress-reporter
-         (make-progress-reporter
-          (format "Loading theme %s..." spacemacs--cur-theme))))
-    (spacemacs/load-theme spacemacs--cur-theme)
-    (progress-reporter-done progress-reporter)))
+  (interactive "P")
+  (let* ((reversed (or (equal backward '(4)) (eq backward t)))
+         (themes (if reversed (reverse dotspacemacs-themes) dotspacemacs-themes)))
+    (when spacemacs--cur-theme
+      (disable-theme spacemacs--cur-theme)
+      ;; if current theme isn't in cycleable themes, start over
+      (setq spacemacs--cycle-themes
+            (or (cdr (memq spacemacs--cur-theme themes))
+                themes)))
+    (setq spacemacs--cur-theme (pop spacemacs--cycle-themes))
+    (let ((progress-reporter
+           (make-progress-reporter
+            (format "Loading theme %s..." spacemacs--cur-theme))))
+      (spacemacs/load-theme spacemacs--cur-theme)
+      (progress-reporter-done progress-reporter))))
 
 (defadvice load-theme (after spacemacs/load-theme-adv activate)
   "Perform post load processing."
