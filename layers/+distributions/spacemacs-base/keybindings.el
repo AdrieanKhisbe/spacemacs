@@ -140,8 +140,8 @@
   :doc "\n[_p_/_<left>_] cycles backward,  [_n_/_<right>_] cycles forward"
   :bindings
   ("n" spacemacs/cycle-spacemacs-theme)
-  ("p" (lambda()(interactive)(spacemacs/cycle-spacemacs-theme t)))
-  ("<left>" (lambda()(interactive)(spacemacs/cycle-spacemacs-theme t)))
+  ("p" (spacemacs/cycle-spacemacs-theme t))
+  ("<left>" (spacemacs/cycle-spacemacs-theme t))
   ("<right>" spacemacs/cycle-spacemacs-theme))
 (spacemacs/set-leader-keys "Tn" 'spacemacs/cycle-spacemacs-theme)
 (spacemacs/set-leader-keys "TN" 'spacemacs/theme-transient-state/body)
